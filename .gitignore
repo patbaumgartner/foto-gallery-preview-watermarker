@@ -1,23 +1,37 @@
-# Compiled output
+HELP.md
 target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# IDE files
-.idea/
-*.iml
-*.iws
-*.ipr
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
-*.class
+.settings
+.springBeans
+.sts4-cache
 
-# OS
-.DS_Store
-Thumbs.db
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# Maven wrapper
-.mvn/
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Gallery working directories (not part of source)
+### VS Code ###
+.vscode/
+
+### Gallery working directories (not part of source) ###
 input/
 output/
