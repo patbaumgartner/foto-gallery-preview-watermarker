@@ -2,6 +2,9 @@
 # ----------------------------------------------------------------------------
 # Foto Gallery Preview Watermarker — convenience launcher
 #
+# Usage (interactive — prompts for each parameter):
+#   ./watermark.sh
+#
 # Usage (positional):
 #   ./watermark.sh [INPUT_DIR] [OUTPUT_DIR] [RESIZE_FACTOR] [EXTRA_ARGS...]
 #
@@ -9,8 +12,8 @@
 #   ./watermark.sh --gallery.input-dir=photos --gallery.output-dir=out
 #
 # Defaults:
-#   INPUT_DIR    = input
-#   OUTPUT_DIR   = output
+#   INPUT_DIR     = input
+#   OUTPUT_DIR    = output
 #   RESIZE_FACTOR = 0.5
 # ----------------------------------------------------------------------------
 set -euf
@@ -30,6 +33,23 @@ else
     exit 1
   fi
   RUNNER="java -jar $JAR"
+fi
+
+# Interactive mode — prompt for each parameter when no arguments are supplied
+if [ $# -eq 0 ]; then
+  printf "Input directory  [input]:  "
+  read -r INPUT_DIR
+  printf "Output directory [output]: "
+  read -r OUTPUT_DIR
+  printf "Resize factor    [0.5]:    "
+  read -r RESIZE_FACTOR
+  INPUT_DIR="${INPUT_DIR:-input}"
+  OUTPUT_DIR="${OUTPUT_DIR:-output}"
+  RESIZE_FACTOR="${RESIZE_FACTOR:-0.5}"
+  exec $RUNNER \
+    "--gallery.input-dir=${INPUT_DIR}" \
+    "--gallery.output-dir=${OUTPUT_DIR}" \
+    "--gallery.resize-factor=${RESIZE_FACTOR}"
 fi
 
 # Detect whether arguments use --flag style or positional style

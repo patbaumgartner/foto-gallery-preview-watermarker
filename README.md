@@ -18,6 +18,7 @@ A Spring Boot command-line tool that recursively processes a photo gallery: it *
   - [Download a release](#download-a-release)
   - [Build from source](#build-from-source)
 - [Usage](#usage)
+  - [Interactive mode](#interactive-mode)
   - [Quick start (positional arguments)](#quick-start-positional-arguments)
   - [Flag-based arguments](#flag-based-arguments)
   - [Run the JAR directly](#run-the-jar-directly)
@@ -89,16 +90,46 @@ To build a **GraalVM native image**:
 
 ## Usage
 
-### Quick start (positional arguments)
+### Interactive mode
 
-Place your images in an `input/` directory and run:
+Run the script without any arguments and it will prompt you for each parameter:
 
 ```bash
 # Linux / macOS
 ./watermark.sh
+```
+
+```
+Input directory  [input]:  photos
+Output directory [output]: previews
+Resize factor    [0.5]:    0.75
+```
+
+```bat
+REM Windows
+watermark.bat
+```
+
+```
+Input directory  [input]:  photos
+Output directory [output]: previews
+Resize factor    [0.5]:    0.75
+```
+
+Press **Enter** to accept the default value shown in brackets.
+
+The script automatically finds and uses the native binary when available, falling back to the fat JAR via `java -jar`.
+
+### Quick start (positional arguments)
+
+Pass arguments directly without prompts by supplying at least the input directory:
+
+```bash
+# Linux / macOS — use defaults for output directory and resize factor
+./watermark.sh photos
 
 # Windows
-watermark.bat
+watermark.bat photos
 ```
 
 | Position | Argument       | Default  |
