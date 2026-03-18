@@ -1,0 +1,23 @@
+# Compiled output
+target/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven wrapper
+.mvn/
+
+# Gallery working directories (not part of source)
+input/
+output/
