@@ -9,6 +9,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
@@ -58,6 +59,20 @@ public class ImageProcessingService {
     public void processGallery(Path inputDir, Path outputDir) throws IOException {
         BufferedImage watermark = loadWatermark();
 
+        // Mirror the full directory structure from input to output (including empty directories).
+        try (var dirs = Files.walk(inputDir)) {
+            dirs.filter(Files::isDirectory)
+                .forEach(dir -> {
+                    Path relative = inputDir.relativize(dir);
+                    Path targetDir = outputDir.resolve(relative);
+                    try {
+                        Files.createDirectories(targetDir);
+                    } catch (IOException e) {
+                        throw new UncheckedIOException("Failed to create directory: " + targetDir, e);
+                    }
+                });
+        }
+
         try (var stream = Files.walk(inputDir)) {
             stream.filter(Files::isRegularFile)
                   .filter(this::isSupportedImage)
@@ -66,7 +81,6 @@ public class ImageProcessingService {
                       Path destination = outputDir.resolve(relative)
                                                   .resolveSibling(toOutputFilename(source.getFileName().toString()));
                       try {
-                          Files.createDirectories(destination.getParent());
                           processImage(source, destination, watermark);
                       } catch (IOException e) {
                           log.error("Failed to process image: {}", source, e);

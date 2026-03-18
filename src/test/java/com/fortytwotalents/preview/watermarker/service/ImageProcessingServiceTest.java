@@ -182,10 +182,28 @@ class ImageProcessingServiceTest {
 
         service.processGallery(inputDir, outputDir);
 
-        // output dir is either not created or empty
-        if (Files.exists(outputDir)) {
-            assertThat(Files.list(outputDir).count()).isZero();
-        }
+        // output dir is created (mirrors inputDir) but contains no image files
+        assertThat(outputDir).exists();
+        assertThat(Files.list(outputDir).count()).isZero();
+    }
+
+    @Test
+    void processGallery_mirrorsEmptySubdirectories(@TempDir Path tmp) throws IOException {
+        // Input layout:
+        //   tmp/input/
+        //     emptySubDir/
+        //     a.jpg
+        Path inputDir = tmp.resolve("input");
+        Path emptySubDir = inputDir.resolve("emptySubDir");
+        Files.createDirectories(emptySubDir);
+        ImageIO.write(sampleImage, "JPEG", inputDir.resolve("a.jpg").toFile());
+
+        Path outputDir = tmp.resolve("output");
+
+        service.processGallery(inputDir, outputDir);
+
+        assertThat(outputDir.resolve("emptySubDir")).isDirectory();
+        assertThat(outputDir.resolve("a.png")).exists();
     }
 
 }
