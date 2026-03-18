@@ -1,0 +1,112 @@
+# ---------------------------------------------------------------------------
+# GitHub Labels — synced automatically by .github/workflows/labels.yml
+# ---------------------------------------------------------------------------
+
+# ----- Type ----------------------------------------------------------------
+- name: "type: bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+
+- name: "type: feature"
+  color: "a2eeef"
+  description: "New feature or request"
+
+- name: "type: enhancement"
+  color: "84b6eb"
+  description: "Improvement to an existing feature"
+
+- name: "type: documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "type: question"
+  color: "d876e3"
+  description: "Further information is requested"
+
+- name: "type: refactor"
+  color: "e4e669"
+  description: "Code restructuring without behaviour change"
+
+- name: "type: test"
+  color: "bfd4f2"
+  description: "Adding or updating tests"
+
+- name: "type: chore"
+  color: "c5def5"
+  description: "Build process, CI, or tooling changes"
+
+- name: "type: security"
+  color: "e11d48"
+  description: "Security-related change or vulnerability"
+
+# ----- Status --------------------------------------------------------------
+- name: "status: duplicate"
+  color: "cfd3d7"
+  description: "This issue or PR already exists"
+
+- name: "status: invalid"
+  color: "e4e4e4"
+  description: "This doesn't seem right"
+
+- name: "status: wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"
+
+- name: "status: blocked"
+  color: "b60205"
+  description: "Blocked by another issue or external factor"
+
+- name: "status: needs-info"
+  color: "fef2c0"
+  description: "More information is needed before this can progress"
+
+- name: "status: in-progress"
+  color: "0e8a16"
+  description: "Work is actively in progress"
+
+# ----- Priority ------------------------------------------------------------
+- name: "priority: critical"
+  color: "b60205"
+  description: "Must be addressed immediately"
+
+- name: "priority: high"
+  color: "e11d48"
+  description: "High priority"
+
+- name: "priority: medium"
+  color: "fbca04"
+  description: "Medium priority"
+
+- name: "priority: low"
+  color: "0e8a16"
+  description: "Low priority — nice to have"
+
+# ----- Community -----------------------------------------------------------
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed"
+
+# ----- Area ----------------------------------------------------------------
+- name: "area: ci"
+  color: "f9d0c4"
+  description: "Related to CI/CD pipelines"
+
+- name: "area: dependencies"
+  color: "0366d6"
+  description: "Related to project dependencies"
+
+- name: "area: image-processing"
+  color: "5319e7"
+  description: "Related to image resizing, watermark, or burn-in logic"
+
+- name: "area: configuration"
+  color: "1d76db"
+  description: "Related to application configuration or properties"
+
+- name: "area: native-image"
+  color: "006b75"
+  description: "Related to GraalVM native image support"
