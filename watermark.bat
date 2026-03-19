@@ -3,6 +3,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 REM ----------------------------------------------------------------------------
 REM Foto Gallery Preview Watermarker — convenience launcher (Windows)
 REM
+REM Usage (interactive — prompts for each parameter):
+REM   watermark.bat
+REM
 REM Usage (positional):
 REM   watermark.bat [INPUT_DIR] [OUTPUT_DIR] [RESIZE_FACTOR] [EXTRA_ARGS...]
 REM
@@ -41,8 +44,20 @@ EXIT /B 1
 SET RUNNER=java -jar "!JAR!"
 
 :RUN
-REM Detect whether arguments use --flag style or positional style
+REM Interactive mode — prompt for each parameter when no arguments are supplied
 SET FIRST_ARG=%~1
+IF "%FIRST_ARG%"=="" (
+  SET /P INPUT_DIR=Input directory  [input]:  
+  SET /P OUTPUT_DIR=Output directory [output]: 
+  SET /P RESIZE_FACTOR=Resize factor    [0.5]:    
+  IF "!INPUT_DIR!"=="" SET INPUT_DIR=input
+  IF "!OUTPUT_DIR!"=="" SET OUTPUT_DIR=output
+  IF "!RESIZE_FACTOR!"=="" SET RESIZE_FACTOR=0.5
+  %RUNNER% "--gallery.input-dir=!INPUT_DIR!" "--gallery.output-dir=!OUTPUT_DIR!" "--gallery.resize-factor=!RESIZE_FACTOR!"
+  GOTO END
+)
+
+REM Detect whether arguments use --flag style or positional style
 IF "%FIRST_ARG:~0,2%"=="--" (
   REM Flag-based — pass everything directly
   %RUNNER% %*
@@ -60,4 +75,5 @@ IF "%FIRST_ARG:~0,2%"=="--" (
   %RUNNER% "--gallery.input-dir=!INPUT_DIR!" "--gallery.output-dir=!OUTPUT_DIR!" "--gallery.resize-factor=!RESIZE_FACTOR!"
 )
 
+:END
 ENDLOCAL
