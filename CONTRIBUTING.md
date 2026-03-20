@@ -93,17 +93,72 @@ This project is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By partic
 
 ## Commit Messages
 
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+Every commit **must** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
+Small, focused commits are preferred over large, catch-all ones — each commit should represent a
+single logical change that can be understood and reviewed in isolation.
+
+### Format
 
 ```
-<type>(<scope>): <short summary>
+<type>(<scope>): <short imperative summary>
+
+[optional body — wrap at 72 chars]
+
+[optional footer(s): Co-authored-by, Fixes #<issue>, BREAKING CHANGE: …]
 ```
 
-Common types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`.
+### Types
 
-Examples:
+| Type       | When to use |
+|------------|-------------|
+| `feat`     | A new feature visible to users |
+| `fix`      | A bug fix |
+| `docs`     | Documentation-only changes |
+| `style`    | Formatting, whitespace — no logic change |
+| `refactor` | Code restructuring without adding features or fixing bugs |
+| `perf`     | Performance improvement |
+| `test`     | Adding or correcting tests |
+| `build`    | Changes to the build system or dependencies (Maven, pom.xml) |
+| `ci`       | Changes to CI/CD configuration files and scripts |
+| `chore`    | Maintenance tasks that don't affect production code |
+| `revert`   | Reverts a previous commit |
+
+### Scope (optional)
+
+Use a scope to narrow the area of change. Suggested scopes for this project:
+
+- `watermark` — core watermarking logic
+- `config` — application configuration / properties
+- `runner` — the `GalleryRunner` entry point
+- `scripts` — `watermark.sh` / `watermark.bat` helper scripts
+- `ci` — GitHub Actions workflows
+- `deps` — dependency updates
+
+### Subject line rules
+
+- Use the **imperative mood** ("add", "fix", "remove" — not "added", "fixing")
+- Keep it under **72 characters**
+- Do **not** end with a period
+
+### Breaking changes
+
+Append `!` after the type/scope and add a `BREAKING CHANGE:` footer:
+
+```
+feat(config)!: rename gallery.input-dir to gallery.source-dir
+
+BREAKING CHANGE: The property key gallery.input-dir has been renamed to
+gallery.source-dir. Update your application.properties accordingly.
+```
+
+### Examples
+
 ```
 feat: add support for HEIC input format
-fix: handle empty input directory gracefully
+fix(watermark): handle empty input directory gracefully
 docs: update configuration table in README
+test(watermark): add edge-case tests for transparent PNG overlays
+ci: cache Maven dependencies between workflow runs
+chore(deps): bump Spring Boot from 4.0.2 to 4.0.3
+refactor(runner): extract directory traversal into dedicated service
 ```
